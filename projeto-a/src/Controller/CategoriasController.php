@@ -15,4 +15,21 @@ class CategoriasController extends AppController
 
 		$this->set(compact('result'));
 	}
+
+	public function add()
+	{
+		$categoria = $this->Categorias->newEntity();
+
+		if ($this->request->is('post'))
+		{
+			$categoria = $this->Categorias->patchEntity($categoria, $this->request->data);
+
+			if ($this->Categorias->save($categoria))
+			{
+				return $this->redirect('/categorias');
+			}
+		}
+
+		$this->set( compact('categoria') );
+	}
 }

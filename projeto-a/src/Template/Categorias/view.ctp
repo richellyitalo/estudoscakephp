@@ -1,8 +1,8 @@
-<h1><?= $result->titulo; ?></h1>
+<h1><?php echo $result->titulo; ?></h1>
 
 <dl>
 	<dt>modificado em</dt>
-	<dd><?= $result->modified; ?></dd>
+	<dd><?php echo $result->modified; ?></dd>
 	<dt>criado em</dt>
-	<dd><?= $result->created; ?></dd>
+	<dd><?php echo $result->created; ?></dd>
 </dl>

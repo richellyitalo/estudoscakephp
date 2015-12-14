@@ -20,4 +20,20 @@ class PaginasController extends AppController
 
 		$this->set(['result' => $data]);
 	}
+
+	public function add()
+	{
+		$pagina = $this->Paginas->newEntity();
+
+		if ($this->request->is('post'))
+		{
+			$pagina = $this->Paginas->patchEntity($pagina, $this->request->data);
+			if ($this->Paginas->save($pagina))
+			{
+				return $this->redirect('/paginas');
+			}
+		}
+
+		$this->set( compact('pagina') );
+	}
 }
