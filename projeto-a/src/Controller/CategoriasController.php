@@ -32,4 +32,22 @@ class CategoriasController extends AppController
 
 		$this->set( compact('categoria') );
 	}
+
+	public function edit($id)
+	{
+		$categoria = $this->Categorias->get($id);
+		$request = $this->request;
+
+		if ($request->is(['post', 'put']) )
+		{
+			$categoria = $this->Categorias->patchEntity($categoria, $request->data);
+
+			if ($this->Categorias->save($categoria))
+			{
+				return $this->redirect('/categorias');
+			}
+		}
+
+		$this->set( compact('categoria') );
+	}
 }
