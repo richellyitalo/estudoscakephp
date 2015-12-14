@@ -52,4 +52,14 @@ class PaginasController extends AppController
 		}
 		$this->set( compact('pagina') );
 	}
+
+	public function delete($id)
+	{
+		$this->request->allowMethod(['get', 'post', 'delete']);
+
+		$pagina = $this->Paginas->get($id);
+		$this->Paginas->delete($pagina);
+
+		return $this->redirect('/paginas');
+	}
 }

@@ -50,4 +50,14 @@ class CategoriasController extends AppController
 
 		$this->set( compact('categoria') );
 	}
+
+	public function delete($id)
+	{
+		$this->request->allowMethod(['get', 'post', 'delete']);
+
+		$categoria = $this->Categorias->get($id);
+		$this->Categorias->delete($categoria);
+
+		return $this->redirect('/categorias');
+	}
 }
