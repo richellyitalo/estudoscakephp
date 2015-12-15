@@ -17,6 +17,11 @@ class Users extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
+            ->addColumn('username', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
             ->addColumn('password', 'string', [
                 'default' => null,
                 'limit' => 255,

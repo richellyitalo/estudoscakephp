@@ -11,6 +11,13 @@ class UsersController extends AppController
 		$this->set( compact('results') );
 	}
 
+	public function view($id)
+	{
+		$user = $this->Users->get($id);
+
+		$this->set( compact('user') );
+	}
+
 	public function add()
 	{
 		$user = $this->Users->newEntity();
@@ -53,5 +60,15 @@ class UsersController extends AppController
 		$this->Users->delete($user);
 
 		return $this->redirect('/users');
+	}
+
+	public function login()
+	{
+		if ($this->request->is('post')) {
+			$user = $this->Auth()->identify();
+			if ($user) {
+				$this->Auth->setUser($user);
+			}
+		}
 	}
 }
