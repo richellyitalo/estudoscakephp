@@ -5,7 +5,11 @@ class PaginasController extends AppController
 {
 	public function index()
 	{
-		$this->set('results', $this->Paginas->find()->all());
+		$this->paginate = [
+			'limit' => 2
+		];
+		$results = $this->paginate($this->Paginas);
+		$this->set( compact('results') );
 	}
 
 	public function view($id)

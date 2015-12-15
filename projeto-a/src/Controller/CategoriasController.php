@@ -6,7 +6,8 @@ class CategoriasController extends AppController
 {
 	public function index()
 	{
-		$this->set('results', $this->Categorias->find()->all());
+		$results = $this->paginate($this->Categorias);
+		$this->set( compact('results') );
 	}
 
 	public function view($id)

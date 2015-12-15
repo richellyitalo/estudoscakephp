@@ -20,12 +20,14 @@
 			<td><?php echo $v->titulo; ?></td>
 			<td><?php echo $v->url; ?></td>
 			<td>
-				<?php
-				echo $linkEdit;
-				echo $linkDelete;
-				?>
+				<?php echo $linkEdit; ?>
+				<?php echo $linkDelete; ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
+
+<?php echo $this->Html->link('Novo', ['controller' => 'Categorias', 'action' => 'add'], ['class' => 'button']); ?>
+
+<?php echo $this->element('pagination'); ?>
