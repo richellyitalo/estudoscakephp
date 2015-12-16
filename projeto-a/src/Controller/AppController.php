@@ -49,6 +49,7 @@ class AppController extends Controller
                     'controller' => 'Paginas',
                     'action' => 'index'
                 ],
+                'authError' => 'Você possivelmente digitou suas credenciais erradas!',
                 'logoutRedirect' => [
                     'controller' => 'Pages',
                     'action' => 'display',
