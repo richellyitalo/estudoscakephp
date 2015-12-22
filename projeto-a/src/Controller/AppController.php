@@ -59,6 +59,15 @@ class AppController extends Controller
     }
 
     /**
+     * Filtro atuante em todas as classes
+     */
+    /*public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['index', 'view']);
+    }*/
+
+    /**
      * Before render callback.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
