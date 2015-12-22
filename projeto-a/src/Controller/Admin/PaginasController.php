@@ -1,8 +1,17 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
+
+use App\Controller\AppController;
+use Cake\Event\Event;
 
 class PaginasController extends AppController
 {
+	public function beforeFilter(Event $event)
+	{
+		parent::beforeFilter($event);
+		$this->Auth->allow(['index']);
+	}
+
 	public function index()
 	{
 		$this->paginate = [
