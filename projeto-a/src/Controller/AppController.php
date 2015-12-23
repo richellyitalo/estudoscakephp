@@ -45,10 +45,7 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('Auth',
             [
-                'loginRedirect' => [
-                    'controller' => 'Paginas',
-                    'action' => 'index'
-                ],
+                'loginRedirect' => '/admin',
                 'authError' => 'Você possivelmente digitou suas credenciais erradas!',
                 'logoutRedirect' => [
                     'controller' => 'Pages',

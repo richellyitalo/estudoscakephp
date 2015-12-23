@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
+use App\Controller\AppController;
 use Cake\Event\Event;
 
 class UsersController extends AppController

@@ -74,6 +74,8 @@ Router::scope('/', function ($routes) {
 });
 
 Router::prefix('admin', function ($routes) {
+    $routes->connect('/', ['controller' => 'Welcome']);
+
     $routes->fallbacks('InflectedRoute');
 });
 

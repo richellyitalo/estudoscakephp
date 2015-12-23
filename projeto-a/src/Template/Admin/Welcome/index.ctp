@@ -3,4 +3,8 @@
 </h1>
 <h2>Seja bem vindo!</h2>
 
-<small>logado como <em><?php echo $email; ?></em></small>
+<small>logado como
+	<em>
+		<?php echo $email; ?>
+	</em>
+</small>
