@@ -20,11 +20,6 @@
         "phpunit/phpunit": "Allows automated tests to be run without system-wide install.",
         "cakephp/cakephp-codesniffer": "Allows to check the code against the coding standards used in CakePHP."
     },
-    "autoload": {
-        "psr-4": {
-            "App\\": "src"
-        }
-    },
     "autoload-dev": {
         "psr-4": {
             "App\\Test\\": "tests",
