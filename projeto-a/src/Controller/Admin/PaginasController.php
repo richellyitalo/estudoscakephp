@@ -43,7 +43,7 @@ class PaginasController extends AppController
 			$pagina = $this->Paginas->patchEntity($pagina, $this->request->data);
 			if ($this->Paginas->save($pagina))
 			{
-				return $this->redirect('/paginas');
+				return $this->redirect(['action' => 'index']);
 			}
 		}
 
@@ -59,7 +59,7 @@ class PaginasController extends AppController
 			$pagina = $this->Paginas->patchENtity($pagina, $this->request->data);
 			if ($this->Paginas->save($pagina))
 			{
-				return $this->redirect('/paginas');
+				return $this->redirect(['action' => 'index']);
 			}
 
 		}
