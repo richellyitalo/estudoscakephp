@@ -16,15 +16,14 @@
 		      </button>
 		      <a class="navbar-brand" href="#">RichSystem</a>
 		    </div>
-
-		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 		        <li class="active">
 		        	<?php
 		        	echo $this->Html->link('Páginas', [
 		        			'prefix' => 'admin',
-		        			'controller' => 'Paginas'
+		        			'controller' => 'Paginas',
+		        			'action' => 'index'
 		        		]);
 	        		?>
 		        </li>
@@ -32,7 +31,8 @@
 		        	<?php
 		        	echo $this->Html->link('Categorias', [
 		        			'prefix' => 'admin',
-		        			'controller' => 'Categorias'
+		        			'controller' => 'Categorias',
+		        			'action' => 'index'
 		        		]);
 	        		?>
 		        </li>
@@ -40,8 +40,9 @@
 		    </div>
 		  </div>
 	</nav>
-
-	<?php echo $this->fetch('content'); ?>
+	<div class="container-fluid">
+		<?php echo $this->fetch('content'); ?>
+	</div>
 
 	<?php echo $this->Html->script('/assets/vendor/bootstrap/dist/js/bootstrap.min.js'); ?>
 </body>

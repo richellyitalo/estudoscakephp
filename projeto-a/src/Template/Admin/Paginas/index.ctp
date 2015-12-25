@@ -1,19 +1,21 @@
 <h2>Páginas</h2>
-<table>
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<th>ID</th>
 			<th>TÍTULO</th>
 			<th>URL</th>
-			<th>AÇÕES</th>
+			<th width=20%>AÇÕES</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php foreach ($results as $v):
 			$linkEdit = $this->Html->link('Editar',
-				['controller' => 'Paginas', 'action' => 'edit', $v->id]);
+				['controller' => 'Paginas', 'action' => 'edit', $v->id],
+				['class' => 'btn btn-xs btn-info']);
 			$linkDelete = $this->Form->postLink('Excluir',
-				['controller' => 'Paginas', 'action' => 'delete', $v->id]);
+				['controller' => 'Paginas', 'action' => 'delete', $v->id],
+				['class' => 'btn btn-xs btn-danger']);
 		?>
 		<tr>
 			<td><?php echo $v->id; ?></td>
@@ -28,6 +30,17 @@
 	</tbody>
 </table>
 
-<?php echo $this->Html->link('Novo', ['controller' => 'Paginas', 'action' => 'add'], ['class' => 'button']); ?>
+<?php
+	echo $this->Html->link('Novo',
+		[
+			'controller' => 'Paginas',
+			'action' => 'add'
+		],
+		[
+			'class' => 'btn btn-primary'
+		]);
+?>
 
-<?php echo $this->element('pagination'); ?>
+<center>
+	<?php echo $this->element('pagination'); ?>
+</center>

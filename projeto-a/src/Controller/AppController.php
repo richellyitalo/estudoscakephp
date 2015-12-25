@@ -73,7 +73,18 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
-        $this->viewBuilder()->theme('Admin');
+        /**
+         * Tema para área administrativa
+         */
+        if ($this->request->param('prefix') == 'admin') {
+            $this->viewBuilder()->theme('Admin');
+        } else {
+            /**
+             * Layout do tema padrão para site
+             */
+            $this->viewBuilder()->layout('site');
+        }
+
 
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])

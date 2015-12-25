@@ -2,9 +2,9 @@
 echo $this->Form->create($pagina);
 
 echo $this->Form->input('id');
-echo $this->Form->input('titulo');
-echo $this->Form->input('conteudo');
-echo $this->Form->input('url');
-echo $this->Form->button('Salvar');
+echo '<div class="form-group">' . $this->Form->input('titulo', ['class' => 'form-control', 'autofocus' => true]) . '</div>';
+echo '<div class="form-group">' . $this->Form->input('conteudo', ['class' => 'form-control']) . '</div>';
+echo '<div class="form-group">' . $this->Form->input('url', ['class' => 'form-control']) . '</div>';
+echo '<div class="form-group">' . $this->Form->button('Salvar', ['class' => 'btn btn-success']) . '</div>';
 
 echo $this->Form->end();

@@ -2,9 +2,9 @@
 
 echo $this->Form->create($categoria);
 
-echo $this->Form->input('titulo');
-echo $this->Form->input('url');
-echo $this->Form->button('Salvar');
+echo '<div class="form-group">' . $this->Form->input('titulo', ['class' => 'form-control']) . '</div>';
+echo '<div class="form-group">' . $this->Form->input('url', ['class' => 'form-control']) . '</div>';
+echo '<div class="form-group">' . $this->Form->button('Salvar', ['class' => 'btn btn-success']) . '</div>';
 
 echo $this->Form->end();
 

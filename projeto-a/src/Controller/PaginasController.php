@@ -22,10 +22,14 @@ class PaginasController extends AppController
 		]);
 		$pagina = $query->first();
 
+		$paginas = $this->Paginas->find()
+			->select(['titulo', 'url'])
+			->all();
+
 		if (!$pagina) {
 			throw new NotFoundException();
 		}
 
-		$this->set( compact('pagina') );
+		$this->set( compact('pagina', 'paginas') );
 	}
 }
