@@ -9,5 +9,4 @@ echo '<div class="form-group">' . $this->Form->input('url', ['class' => 'form-co
 echo '<div class="form-group">' . $this->Form->button('Salvar', ['class' => 'btn btn-success']) . '</div>';
 
 echo $this->Form->end();
-
 ?>

@@ -44,6 +44,12 @@
 		<?php echo $this->fetch('content'); ?>
 	</div>
 
-	<?php echo $this->Html->script('/assets/vendor/bootstrap/dist/js/bootstrap.min.js'); ?>
+	<?php
+		echo $this->Html->script([
+			'/assets/vendor/jquery/dist/jquery.min',
+			'/assets/vendor/bootstrap/dist/js/bootstrap.min.js'
+		]);
+		echo $this->fetch('scriptsBottom');
+	?>
 </body>
 </html>
