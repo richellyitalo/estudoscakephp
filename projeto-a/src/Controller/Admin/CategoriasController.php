@@ -29,7 +29,7 @@ class CategoriasController extends AppController
 
 			if ($this->Categorias->save($categoria))
 			{
-				return $this->redirect('/categorias');
+				return $this->redirect('/admin/categorias');
 			}
 		}
 
@@ -38,16 +38,15 @@ class CategoriasController extends AppController
 
 	public function edit($id)
 	{
-		$categoria = $this->Categorias->get($id);
+		$categoria = $this->Categorias->get($id, ['contain' => 'Paginas']);
 		$request = $this->request;
 
 		if ($request->is(['post', 'put']) )
 		{
 			$categoria = $this->Categorias->patchEntity($categoria, $request->data);
 
-			if ($this->Categorias->save($categoria))
-			{
-				return $this->redirect('/categorias');
+			if ($this->Categorias->save($categoria)) {
+				return $this->redirect('/admin/categorias');
 			}
 		}
 
@@ -61,6 +60,6 @@ class CategoriasController extends AppController
 		$categoria = $this->Categorias->get($id);
 		$this->Categorias->delete($categoria);
 
-		return $this->redirect('/categorias');
+		return $this->redirect('/admin/categorias');
 	}
 }

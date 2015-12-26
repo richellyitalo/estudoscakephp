@@ -4,11 +4,12 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 
-class PaginasTable extends Table
+class CategoriasTable extends Table
 {
 	public function initialize(array $config)
 	{
 		$this->addBehavior('Timestamp');
-		$this->belongsTo('Categorias');
+		$this->hasMany('Paginas');
+		$this->displayField('titulo');
 	}
 }

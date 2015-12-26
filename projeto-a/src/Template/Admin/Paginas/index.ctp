@@ -5,6 +5,9 @@
 			<th>ID</th>
 			<th>TÍTULO</th>
 			<th>URL</th>
+			<th>CATEGORIA</th>
+			<th>CRIADO</th>
+			<th>MODIFICADO</th>
 			<th width=20%>AÇÕES</th>
 		</tr>
 	</thead>
@@ -21,6 +24,9 @@
 			<td><?php echo $v->id; ?></td>
 			<td><?php echo $v->titulo; ?></td>
 			<td><?php echo $v->url; ?></td>
+			<td><?php echo $v->categoria->titulo; ?></td>
+			<td><?php echo $v->created; ?></td>
+			<td><?php echo $v->modified; ?></td>
 			<td>
 				<?php echo $linkEdit; ?>
 				<?php echo $linkDelete; ?>

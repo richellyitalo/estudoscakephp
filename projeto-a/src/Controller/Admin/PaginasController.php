@@ -14,10 +14,14 @@ class PaginasController extends AppController
 
 	public function index()
 	{
+		/*
 		$this->paginate = [
 			'limit' => 2
-		];
-		$results = $this->paginate($this->Paginas);
+		];*/
+		$results = $this->paginate($this->Paginas->find('all')->contain(['Categorias']));
+
+		//$results = $this->Paginas->find()->all();
+
 		$this->set( compact('results') );
 	}
 
@@ -46,8 +50,8 @@ class PaginasController extends AppController
 				return $this->redirect(['action' => 'index']);
 			}
 		}
-
-		$this->set( compact('pagina') );
+		$categorias = $this->Paginas->Categorias->find('list', ['limit' => 200]);
+		$this->set( compact('pagina', 'categorias') );
 	}
 
 	public function edit($id)
@@ -63,7 +67,8 @@ class PaginasController extends AppController
 			}
 
 		}
-		$this->set( compact('pagina') );
+		$categorias = $this->Paginas->Categorias->find('list', ['limit' => 200]);
+		$this->set( compact('pagina', 'categorias') );
 	}
 
 	public function delete($id)
@@ -73,6 +78,6 @@ class PaginasController extends AppController
 		$pagina = $this->Paginas->get($id);
 		$this->Paginas->delete($pagina);
 
-		return $this->redirect('/paginas');
+		return $this->redirect('/admin/paginas');
 	}
 }
