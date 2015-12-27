@@ -11,4 +11,22 @@ class PaginasTable extends Table
 		$this->addBehavior('Timestamp');
 		$this->belongsTo('Categorias');
 	}
+
+	public function getPaginaBySlug($slug)
+	{
+		$query = $this->find()
+			->contain(['Categorias'])
+			->where([
+				'Paginas.url' => $slug
+		]);
+		$pagina = $query->first();
+		return $pagina;
+	}
+
+	public function getMenu()
+	{
+        return $this->find()
+        	->select(['titulo', 'url'])
+        	->all();
+	}
 }

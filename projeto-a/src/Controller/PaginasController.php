@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Cake\Event\Event;
 use Cake\Network\Exception\NotFoundException;
+use Cake\Cache\Cache;
 
 class PaginasController extends AppController
 {
@@ -16,21 +17,17 @@ class PaginasController extends AppController
 
 	public function view($slug)
 	{
-		$query = $this->Paginas->find()
-			->contain(['Categorias'])
-			->where([
-				'Paginas.url' => $slug
-		]);
-		$pagina = $query->first();
+		$pagina = Cache::read('pagina_view_' . $slug);
 
-		$paginas = $this->Paginas->find()
-			->select(['titulo', 'url'])
-			->all();
+		if ($pagina === false) {
+			$pagina = $this->Paginas->getPaginaBySlug($slug);
+			Cache::write('pagina_view_' . $slug, $pagina);
+		}
 
 		if (!$pagina) {
 			throw new NotFoundException();
 		}
 
-		$this->set( compact('pagina', 'paginas') );
+		$this->set( compact('pagina') );
 	}
 }

@@ -12,4 +12,20 @@ class CategoriasTable extends Table
 		$this->hasMany('Paginas');
 		$this->displayField('titulo');
 	}
+
+	public function getCategoriaBySlug($slug)
+	{
+		$categoria = $this->find()
+			->contain(['Paginas'])
+			->where(['Categorias.url' => $slug])
+			->first();
+		return $categoria;
+	}
+
+	public function getMenu()
+	{
+	    return $this->find()
+	    	->select(['titulo', 'url'])
+	    	->all();
+	}
 }

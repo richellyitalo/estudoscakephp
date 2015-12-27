@@ -51,6 +51,23 @@
                                                 <?php echo $this->Html->link($v->titulo, '/' . $v->url); ?>
                                             </li>
                                         <?php endforeach; ?>
+                                        <li class="dropdown">
+                                            <a href="" class="dropdown-toggle" data-toggle="dropdown">Categorias <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <?php foreach ($categorias as $v) : ?>
+                                                  <li>
+                                                      <?php
+                                                          echo $this->Html->link($v->titulo, [
+                                                            'controller' => 'Categorias',
+                                                            'action' => 'view',
+                                                            $v->url
+                                                          ]);
+                                                      ?>
+                                                  </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -105,15 +122,9 @@
             ==============================================-->
             <div class="row feature-box">
                 <div class="span12 cnt-title">
-                    <h1>
-                        <?php echo $pagina->titulo; ?>
-                    </h1>
-                    <h3><em>publicado em <?php echo $pagina->categoria->titulo; ?></em></h3>
-                    <div>
-                        <?php echo $pagina->conteudo; ?>
-                    </div>
+                    <?php echo $this->fetch('content'); ?>
                 </div>
-                <div class="span4">
+                <!-- <div class="span4">
                     <img src="img/icon3.png">
                     <h2>Feature A</h2>
                     <p>
@@ -137,20 +148,20 @@
                         Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
                     </p>
                     <a href="#">Read More &rarr;</a>
-                </div>
+                </div> -->
             </div>
             <!-- /.Feature -->
-            <div class="hr-divider"></div>
-            <!-- Row View -->
-            <div class="row">
-                <div class="span6"><img src="img/responsive.png"></div>
-                <div class="span6">
-                    <img class="hidden-phone" src="img/icon4.png" alt="">
-                    <h1>Fully Responsive</h1>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                    <a href="#">Read More &rarr;</a>
-                </div>
-            </div>
+           <!--  <div class="hr-divider"></div>
+           Row View
+           <div class="row">
+               <div class="span6"><img src="img/responsive.png"></div>
+               <div class="span6">
+                   <img class="hidden-phone" src="img/icon4.png" alt="">
+                   <h1>Fully Responsive</h1>
+                   <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                   <a href="#">Read More &rarr;</a>
+               </div>
+           </div> -->
         </div>
         <!-- /.Row View -->
         <!--Footer
@@ -158,10 +169,10 @@
         <footer>
             <div class="container">
                 <div class="row">
-                    <div class="span6">Copyright &copy 2013 Shapebootstrap | All Rights Reserved  <br>
-                        <small>Aliquam tincidunt mauris eu risus.</small>
+                    <div class="span6">Desenvolvido para estudo by @RichellyItalo  <br>
+                        <small>Seja aplicado, quando se tem impressão que se sabe, realmente não sabemos.</small>
                     </div>
-                    <div class="span6">
+                    <!-- <div class="span6">
                         <div class="social pull-right">
                             <a href="#"><img src="img/social/googleplus.png" alt=""></a>
                             <a href="#"><img src="img/social/dribbble.png" alt=""></a>
@@ -169,7 +180,7 @@
                             <a href="#"><img src="img/social/dribbble.png" alt=""></a>
                             <a href="#"><img src="img/social/rss.png" alt=""></a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </footer>

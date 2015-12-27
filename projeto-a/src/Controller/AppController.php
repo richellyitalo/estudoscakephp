@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -83,6 +84,11 @@ class AppController extends Controller
              * Layout do tema padrão para site
              */
             $this->viewBuilder()->layout('site');
+
+            $paginas = TableRegistry::get('Paginas')->getMenu();
+            $categorias = TableRegistry::get('Categorias')->getMenu();
+
+            $this->set(compact('paginas', 'categorias'));
         }
 
 
