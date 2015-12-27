@@ -60,7 +60,7 @@ class PaginasController extends AppController
 
 		if ($this->request->is(['post', 'put']) )
 		{
-			$pagina = $this->Paginas->patchENtity($pagina, $this->request->data);
+			$pagina = $this->Paginas->patchEntity($pagina, $this->request->data);
 			if ($this->Paginas->save($pagina))
 			{
 				return $this->redirect(['action' => 'index']);

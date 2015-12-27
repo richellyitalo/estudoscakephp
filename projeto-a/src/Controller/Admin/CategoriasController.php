@@ -25,6 +25,18 @@ class CategoriasController extends AppController
 
 		if ($this->request->is('post'))
 		{
+			/*
+			 * Uma outra forma de inserção
+			 *
+			$categoriaTable = \Cake\ORM\TableRegistry::get('Categorias');
+
+			// $categoriaEntity = $categoriaTable->newEntity($this->request->data);
+			$categoriaEntity = new \App\Model\Entity\Categoria($this->request->data);
+
+			$categoriaSaved = $categoriaTable->save($categoriaEntity);
+			debug($categoriaSaved);
+			*/
+
 			$categoria = $this->Categorias->patchEntity($categoria, $this->request->data);
 
 			if ($this->Categorias->save($categoria))

@@ -17,6 +17,7 @@ class PaginasController extends AppController
 	public function view($slug)
 	{
 		$query = $this->Paginas->find()
+			->contain(['Categorias'])
 			->where([
 				'Paginas.url' => $slug
 		]);
