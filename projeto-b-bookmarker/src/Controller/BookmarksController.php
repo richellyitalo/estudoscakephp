@@ -117,6 +117,7 @@ class BookmarksController extends AppController
         $tags = $this->request->params['pass'];
 
         // retorno dos bookmarks a partir das tags
+        // o find 'tagged' será criada no 'nameModel'Table
         $bookmarks = $this->Bookmarks->find('tagged', [
             'tags' => $tags
         ]);
