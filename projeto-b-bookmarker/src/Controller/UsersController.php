@@ -102,4 +102,33 @@ class UsersController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * Login configurado em AppController
+     * na leitura do AuthComponent
+     * @return [type] [description]
+     */
+    public function login()
+    {
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error('Nome de usuário ou senha incorretos.');
+        }
+    }
+
+    public function logout()
+    {
+        $this->Flash->success('Você agora está deslogado!');
+        return $this->redirect($this->Auth->logout());
+    }
+
+    public function beforeFilter(\Cake\Event\Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow('add');
+    }
 }

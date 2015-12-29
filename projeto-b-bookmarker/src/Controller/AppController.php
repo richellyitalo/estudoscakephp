@@ -43,6 +43,27 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authorize' => 'Controller',
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'email',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'unauthorizedRedirect' => $this->referer()
+        ]);
+
+        // Ação permitida para todos os controllers
+        // O motivo de ser global é que essa ativação de permissão se encontra 
+        // aqui no AppController (carrega antes de todos os controllers)
+        $this->Auth->allow(['display']);
     }
 
     /**
@@ -58,5 +79,10 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+    }
+
+    public function isAuthorized($user)
+    {
+        return false;
     }
 }
