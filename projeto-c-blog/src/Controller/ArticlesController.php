@@ -34,7 +34,9 @@ class ArticlesController extends AppController
 			}
 			$this->Flash->error('Não foi possível salvar o Artigo.');
 		}
-		$this->set(compact('article'));
+
+		$categories = $this->Articles->Categories->find('treelist');
+		$this->set(compact('article', 'categories'));
 	}
 
 	/**
@@ -53,7 +55,8 @@ class ArticlesController extends AppController
 			}
 			$this->Flash->error('Não foi possível atualizar artigo.');
 		}
-		$this->set(compact('article'));
+		$categories = $this->Articles->Categories->find('treelist');
+		$this->set(compact('article', 'categories'));
 	}
 
 	public function delete($id)
