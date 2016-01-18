@@ -28,6 +28,7 @@ class ArticlesController extends AppController
 		 */
 		if ($this->request->is('post')) {
 			$article = $this->Articles->patchEntity($article, $this->request->data);
+			$article->user_id = $this->Auth->user('id');
 			if ($this->Articles->save($article)) {
 				$this->Flash->success('Artigo cadastrado com sucesso.');
 				return $this->redirect(['action' => 'index']);
@@ -68,5 +69,25 @@ class ArticlesController extends AppController
 			$this->Flash->success(__('O artigo com id: {0} foi deletado com sucesso.', h($id)));
 			return $this->redirect(['action' => 'index']);
 		}
+	}
+
+	public function isAuthorized($user)
+	{
+		// A ação de inserir é livre
+		if ($this->request->action === 'add') {
+			return true;
+		}
+
+		/**
+		 * Verifica se o usuário é proprietário do Artigo.
+		 */
+		if (in_array($this->request->action, ['edit', 'delete'])) {
+			$articleId = (int) $this->request->params['pass'][0];
+			if ($this->Articles->isOwnedBy($articleId, $user['id'])) {
+				return true;
+			}
+		}
+
+		return parent::isAuthorized($user);
 	}
 }

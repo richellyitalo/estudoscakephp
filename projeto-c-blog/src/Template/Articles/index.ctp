@@ -1,3 +1,5 @@
+<?php echo $this->Flash->render(); ?>
+<?php echo $this->Flash->render('auth'); ?>
 <h1>Artigos</h1>
 <?php echo $this->Html->link('Adicionar artigo', ['action' => 'add']); ?>
 <table>
