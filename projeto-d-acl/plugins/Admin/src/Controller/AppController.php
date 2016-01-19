@@ -18,7 +18,11 @@ class AppController extends BaseController
             'loginRedirect' => '/admin',
 			'authError' => 'Você precisar estar logado como administrador para acessar essa área.',
 			'authenticate' => [
-				'Form' => ['username' => 'email', 'finder' => 'active']
+				'Form' => [
+					'userModel' => 'Admin.Users',
+					'username' => 'email',
+					'finder' => 'admin'
+				]
 			]
 		]);
 	}

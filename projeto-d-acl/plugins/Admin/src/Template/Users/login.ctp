@@ -17,6 +17,7 @@ $tpl = [
 		]));
 		echo $this->Form->input('password', $tpl);
 		echo $this->Form->button('Logar', ['class' => 'ui button']);
+		echo $this->Html->link('Não sou registrado', ['action' => 'registerCustomer']);
 
 		echo $this->Form->end();
 		?>

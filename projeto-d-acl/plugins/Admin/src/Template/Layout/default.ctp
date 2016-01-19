@@ -20,12 +20,15 @@
 	?>
 </head>
 <body>
+	<div class="ui container">
 
 	<?php
 	echo $this->Flash->render();
+	echo $this->Flash->render('auth');
 	echo $this->fetch('content');
 	?>
 
+	</div>
 	<?php
 	echo $this->Html->script([
 		'Admin./assets/vendor/jquery/dist/jquery.min',

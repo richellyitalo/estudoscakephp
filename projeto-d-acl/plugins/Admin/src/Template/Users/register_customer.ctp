@@ -28,7 +28,7 @@ $tpl = [
 		    <div class="three fields">
 			<?php
 			echo $this->Form->input('cep', array_merge($tpl, [
-				'templateVars' => ['class' => 'three wide']
+				'templateVars' => ['class' => 'five wide']
 			]));
 			echo $this->Form->input('state_id', $tpl);
 			echo $this->Form->input('city_id', array_merge($tpl, [

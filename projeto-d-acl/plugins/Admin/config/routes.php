@@ -16,6 +16,10 @@ Router::plugin(
             'controller' => 'Users',
             'action' => 'registerCustomer'
         ]);
+        $routes->connect('/ativar', [
+            'controller' => 'Users',
+            'action' => 'activate'
+        ]);
 
         $routes->fallbacks('DashedRoute');
     }

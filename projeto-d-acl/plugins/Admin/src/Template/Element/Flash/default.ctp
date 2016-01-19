@@ -11,5 +11,5 @@ if (!empty($params['class'])) {
 	</div>
 	<?php endif; ?>
 
-	<p><?php echo h($message); ?></p>
+	<p><?php echo $message; ?></p>
 </div>
