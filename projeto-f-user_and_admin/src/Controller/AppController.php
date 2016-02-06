@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * Application Controller
@@ -43,6 +44,20 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'loginRedirect' => ['controller' => 'Dashboard', 'action' => 'index'],
+            'authenticate' => [
+                'form' => [
+                    'fields' => ['username' => 'email']
+                ]
+            ]
+        ]);
+    }
+
+    private function _setVariables()
+    {
+        $authUser = $this->Auth->user();
+        $this->set(compact('authUser'));
     }
 
     /**
@@ -53,10 +68,34 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
+        $this->_setVariables();
+
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
             $this->set('_serialize', true);
         }
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
+        // Autorização para admin
+        if ($this->getPrefix() == 'admin' and $this->Auth->user('role') != 'admin') {
+            throw new NotFoundException("Página não encontrada");
+        }
+
+        // if ($this->Auth->user('role') == 'cliente') {
+        //     $this->Auth->config('loginRedirect', ['controller' => 'Dashboard', 'action' => 'index']);
+        // }
+    }
+
+    private function getPrefix()
+    {
+        if (isset($this->request->params['prefix'])) {
+            return $this->request->params['prefix'];
+        }
+        return false;
     }
 }

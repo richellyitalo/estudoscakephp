@@ -54,12 +54,6 @@ Router::scope('/', function ($routes) {
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
-    $routes->connect(
-        '/acesso/login',
-        ['controller' => 'Pages', 'action' => 'display', 'acesso'],
-        ['_name' => 'acesso']
-    );
-
     /**
      * Connect catchall routes for all controllers.
      *
@@ -78,6 +72,25 @@ Router::scope('/', function ($routes) {
      */
     $routes->fallbacks('DashedRoute');
 });
+
+/**
+ * Área do usuário
+ */
+Router::prefix('painel', function ($routes) {
+    $routes->connect('/', ['controller' => 'Dashboard']);
+
+    $routes->fallbacks('InflectedRoute');
+});
+
+/**
+ * Área do administrador
+ */
+Router::prefix('admin', function ($routes) {
+    $routes->connect('/', ['controller' => 'Dashboard']);
+
+    $routes->fallbacks('InflectedRoute');
+});
+
 
 /**
  * Load all plugin routes.  See the Plugin documentation on

@@ -52,9 +52,35 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <li class="active"><a href="#">Home</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <?php echo $this->Html->link('Login/Cadastro', ['_name' => 'acesso']); ?>
+
+                    <?php if ($authUser): ?>
+
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imóveis <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li>
+                        <?php echo $this->Html->link('Listar', ['controller' => 'Properties', 'action' => 'index']); ?>
+                        </li>
+                        <li>
+                        <?php echo $this->Html->link('Anunciar', ['controller' => 'Properties', 'action' => 'add']); ?>
+                        </li>
+                      </ul>
                     </li>
+                    <li>
+                        <?php echo $this->Html->link('Meu painel', ['controller' => 'Dashboard', 'action' => 'index']); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link('Sair', '/painel/users/logout'); ?>
+                    </li>
+
+                    <?php else: ?>
+
+                    <li>
+                        <?php echo $this->Html->link('Login/Cadastro', '/painel/users/login'); ?>
+                    </li>
+
+                    <?php endif; ?>
+
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
