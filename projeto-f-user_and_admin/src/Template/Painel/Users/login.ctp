@@ -31,8 +31,9 @@ $this->loadHelper('Form', [
 
         echo '<hr />';
 
-        echo $this->Form->input('Nome');
-        echo $this->Form->input('Endereço');
+        echo $this->Form->input('nome');
+        echo $this->Form->input('sobrenome');
+        echo $this->Form->input('endereco');
 
         echo $this->Form->submit('Cadastrar', ['class' => 'btn btn-primary']);
       echo $this->Form->end();

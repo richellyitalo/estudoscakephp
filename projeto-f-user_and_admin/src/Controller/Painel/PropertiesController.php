@@ -26,8 +26,8 @@ class PropertiesController extends AppController
 			$property = $this->Properties->patchEntity($property, $this->request->data);
 			$property->user = $user;
 			if ($this->Properties->save($property)) {
-				$this->Flash->success('Registro salvo com sucesso.');
-				return $this->redirect(['action' => 'plano', $property->id]);
+				$this->Flash->success('Registro salvo com sucesso, selecione o plano que deseja anunciar.');
+				return $this->redirect(['controller' => 'Advertisements', 'action' => 'add', $property->id]);
 			} else {
 				$this->Flash->error('Verifique os dados, e tente novamente.');
 			}

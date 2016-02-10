@@ -49,8 +49,7 @@ class PlansController extends AppController
     public function add()
     {
         $plan = $this->Plans->newEntity();
-        debug($plan->getTiposAllow());
-        die();
+
         if ($this->request->is('post')) {
             $plan = $this->Plans->patchEntity($plan, $this->request->data);
             if ($this->Plans->save($plan)) {
@@ -60,8 +59,8 @@ class PlansController extends AppController
                 $this->Flash->error(__('The plan could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('plan'));
-        $this->set('_serialize', ['plan']);
+        $tipos = $plan->getTipos();
+        $this->set(compact('plan', 'tipos'));
     }
 
     /**
@@ -85,7 +84,8 @@ class PlansController extends AppController
                 $this->Flash->error(__('The plan could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('plan'));
+        $tipos = $plan->getTipos();
+        $this->set(compact('plan', 'tipos'));
         $this->set('_serialize', ['plan']);
     }
 

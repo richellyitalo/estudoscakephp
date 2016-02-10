@@ -30,13 +30,17 @@ class Plan extends Entity
         'id' => false,
     ];
 
+    protected $_virtual = [
+        'tipo_nome'
+    ];
+
     /**
      * Tipos de usuário permitidos
      * @var array
      */
     private $_tiposArray = [
-        1 => 'dia',
-        2 => 'mes'
+        1 => 'Dia',
+        2 => 'Mês'
     ];
 
 
@@ -45,9 +49,22 @@ class Plan extends Entity
     | Tipos permitidos
     |--------------------------------------------------------------------------
     */
-   
-    public function getTiposAllow()
+
+    public function getTipos()
     {
         return $this->_tiposArray;
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Virtual fields
+    |--------------------------------------------------------------------------
+    */
+
+    protected function _getTipoNome()
+    {
+        return $this->_tiposArray[ $this->_properties['tipo'] ];
+    }
+
+
 }

@@ -34,21 +34,11 @@ class Advertisement extends Entity
         'id' => false,
     ];
 
-    /**
-     * Define o prazo de vencimento do anúncio em dias a frente da data atual.
-     * @param  int $days Dias a acrescer no vencimento
-     */
-    public function definirVencimento($days)
-    {
-        if (! isset($this->_properties['vencimento'])
-            || new Time > $this->_properties['vencimento']
-            ) {
-            $newVencimento = new Time( sprintf('+%s days', $days) );
-        } else {
-            $newVencimento = $this->_properties['vencimento']->modify( sprintf('+%s days', $days) );
-        }
-        $this->set('vencimento', $newVencimento);
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Virtual Fields
+    |--------------------------------------------------------------------------
+    */
 
     /**
      * Returna true para o status em dia do anúncio.
@@ -57,7 +47,7 @@ class Advertisement extends Entity
      */
     protected function _getStatus()
     {
-        return new Time() < $this->_properties['vencimento'];
+        return new Time() <= $this->_properties['vencimento'];
     }
 
     /**
@@ -70,5 +60,42 @@ class Advertisement extends Entity
             return 'Em dias';
         }
         return 'Vencido';
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Funções complementares
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Define o prazo de vencimento do anúncio em dias a frente da data atual.
+     * @param  int $days Dias a acrescer no vencimento
+     * @param  int         $days [description]
+     * @param  int|integer $tipo [1:dia, 2:mes]
+     * @return void
+     */
+    public function definirVencimento($days, $tipo)
+    {
+        $tipoString = $tipo == 1 ? 'days' : 'months';
+        $changeString = sprintf('+%s %s', $days, $tipoString);
+
+        if ( $this->_isVencimentoAtrazado() ) {
+            $newVencimento = new Time( $changeString );
+        } else {
+            $newVencimento = $this->_properties['vencimento']->modify( $changeString );
+        }
+        $this->set('vencimento', $newVencimento);
+    }
+
+    /**
+     * Vencimento já passou da data atual,
+     * ou não existe (para novos cadastros).
+     * @return boolean [description]
+     */
+    private function _isVencimentoAtrazado()
+    {
+        return ! isset($this->_properties['vencimento'])
+            || new Time > $this->_properties['vencimento'];
     }
 }

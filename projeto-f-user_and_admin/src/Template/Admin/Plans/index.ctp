@@ -11,7 +11,8 @@
 		    					<tr>
 		    						<th>ID</th>
 		    						<th>TÍTULO</th>
-		    						<th>PERÍODO</th>
+                                    <th>PERÍODO</th>
+		    						<th>TIPO</th>
 		    						<th align="center">o</th>
 		    					</tr>
 		    				</thead>
@@ -20,7 +21,8 @@
 		    					<tr>
 		    						<td><?php echo $v->id ?></td>
 		    						<td><?php echo $v->titulo ?></td>
-		    						<td><?php echo $v->periodo; echo $v->periodo > 1 ? ' dias' : ' dia' ?></td>
+                                    <td><?php echo $v->periodo;?></td>
+		    						<td><?php echo $v->tipo_nome;?></td>
 		    						<td>
 	    								<?php echo $this->Html->link('<span class="glyphicon glyphicon-pencil"></span>',
     										['action' => 'edit', $v->id], ['escape' => false]) ?>

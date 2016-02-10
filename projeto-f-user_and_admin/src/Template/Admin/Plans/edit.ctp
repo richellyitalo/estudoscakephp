@@ -11,10 +11,14 @@ $this->loadHelper('Form', [
           <?php
           echo $this->Form->create($plan, ['novalidate']);
             echo $this->Form->input('titulo');
-      
+
+            echo '<div class="row"><div class="col-md-6">';
             echo $this->Form->input('periodo');
-            echo $this->Form->submit('Salvar', ['class' => 'btn btn-primary']);
-      
+            echo '</div><div class="col-md-6">';
+            echo $this->Form->input('tipo', ['options' => $tipos]);
+            echo '</div></div>';
+            echo $this->Form->submit('Cadastrar', ['class' => 'btn btn-primary']);
+
           echo $this->Form->end();
           ?>
       </div>

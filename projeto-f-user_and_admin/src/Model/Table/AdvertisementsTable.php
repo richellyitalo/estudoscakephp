@@ -114,10 +114,10 @@ class AdvertisementsTable extends Table
         }
     }
 
-    private function _definirVencimentoAnuncio($entity)
+    private function _definirVencimentoAnuncio(Advertisement $entity)
     {
         $plan = $this->Plans->get($entity->plan_id);
-        $entity->definirVencimento($plan->periodo);
+        $entity->definirVencimento($plan->periodo, $plan->tipo);
         return $entity;
     }
 }

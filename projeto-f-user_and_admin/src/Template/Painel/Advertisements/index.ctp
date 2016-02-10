@@ -28,6 +28,8 @@
 		    						<td><?php echo $v->created ?></td>
 		    						<td><?php echo $v->vencimento ?></td>
 		    						<td>
+		    							<?php echo $this->Html->link('renovar plano',
+    										['action' => 'renew', $v->id], ['class' => 'btn btn-primary btn-xs']) ?>
 		    						</td>
 		    					</tr>
 		    					<?php endforeach; ?>
@@ -49,6 +51,8 @@
 		    						<td><?php echo $v->created ?></td>
 		    						<td><?php echo $v->vencimento ?></td>
 		    						<td>
+			    						<?php echo $this->Html->link('renovar plano',
+    										['action' => 'renew', $v->id], ['class' => 'btn btn-primary btn-xs']) ?>
 		    						</td>
 		    					</tr>
 		    					<?php endforeach; ?>
