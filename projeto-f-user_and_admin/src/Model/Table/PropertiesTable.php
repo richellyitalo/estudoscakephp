@@ -102,6 +102,14 @@ class PropertiesTable extends Table
             });
     }
 
+    public function findPendente(Query $query, array $options)
+    {
+        return $query->matching('Advertisements', function ($q)
+            {
+                return $q->find('pendente');
+            });
+    }
+
     public function findVencido(Query $query, array $options)
     {
         return $query->matching('Advertisements', function ($q)

@@ -21,6 +21,43 @@
 
 		    				/*
 		    				|--------------------------------------------------------------------------
+		    				| IMÓVEIS PENDENTES
+		    				|--------------------------------------------------------------------------
+		    				 */
+
+		    				if ($propertiesPendentes->count() > 0):
+	    					?>
+	    					<tbody>
+	    						<tr>
+	    							<th colspan="6" class="text-center alert alert-warning">
+	    								IMÓVEIS COM ANÚNCIOS PENDENTES
+	    							</th>
+	    						</tr>
+	    					</tbody>
+
+		    				<tbody>
+		    					<?php foreach ($propertiesPendentes as $v): ?>
+		    					<tr>
+		    						<td><?php echo $v->id ?></td>
+		    						<td><?php echo $v->titulo ?></td>
+		    						<td><?php echo $v->created ?></td>
+		    						<td><?php echo $v->modified ?></td>
+		    						<td>-</td>
+		    						<td>
+	    								<?php echo $this->Html->link('<span class="glyphicon glyphicon-pencil"></span>',
+    										['action' => 'edit', $v->id], ['escape' => false]) ?>
+	    								<?php echo $this->Html->link('renovar plano',
+    										['controller' => 'Advertisements', 'action' => 'renew', $v->advertisement->id], ['class' => 'btn btn-primary btn-xs']) ?>
+		    						</td>
+		    					</tr>
+		    					<?php endforeach; ?>
+		    				</tbody>
+
+							<?php
+							endif;
+
+		    				/*
+		    				|--------------------------------------------------------------------------
 		    				| IMÓVEIS ANUNCIADOS
 		    				|--------------------------------------------------------------------------
 		    				 */

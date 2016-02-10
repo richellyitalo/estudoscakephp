@@ -37,6 +37,10 @@ class AdvertisementsTable extends Table
             'targetForeignKey' => 'advertisement_id',
             'joinType' => 'INNER'
         ]);
+        $this->hasMany('AdvertisementsPending', [
+            'targetForeignKey' => 'advertisement_id',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsTo('Plans', [
             'foreignKey' => 'plan_id',
             'joinType' => 'INNER'
@@ -84,12 +88,17 @@ class AdvertisementsTable extends Table
 
     public function findValido(Query $query, array $options)
     {
-        return $query->where(['Advertisements.vencimento >' => new Time]);
+        return $query->where(['Advertisements.vencimento >=' => new Time]);
     }
 
     public function findInvalido(Query $query, array $options)
     {
-        return $query->where(['Advertisements.vencimento <' => new Time]);
+        return $query->where(['Advertisements.vencimento' => new Time]);
+    }
+
+    public function findPendente(Query $query, array $options)
+    {
+        return $query->where(['Advertisements.vencimento IS' => NULL]);
     }
 
     /*
@@ -101,20 +110,33 @@ class AdvertisementsTable extends Table
     public function beforeSave($event, $entity, $options)
     {
         if ($entity->isNew() || $options['renew']) {
-            $entity = $this->_definirVencimentoAnuncio($entity);
+            //$entity = $this->_setVencimentoAnuncio($entity);
         }
     }
 
     public function afterSave($event, $entity, $options)
     {
+        $planModelTable = $this->Plans->get($entity->plan_id);
+
         if ($entity->isnew() || $options['renew']) {
-            $newHistoricoData = array_merge($entity->toArray(), ['advertisement_id' => $entity->id]);
-            $newHistorico = $this->AdvertisementsHistoric->newEntity($newHistoricoData, ['associated' => false]);
-            $this->AdvertisementsHistoric->save($newHistorico);
+            $advertisementPendingData = array_merge($entity->toArray(), [
+                'advertisement_id' => $entity->id,
+                'plan_periodo' => $planModelTable->periodo,
+                'plan_tipo' => $planModelTable->tipo
+            ]);
+
+            $advertisementEntity = $this->AdvertisementsPending->newEntity($advertisementPendingData, ['associated' => false]);
+            $this->AdvertisementsPending->save($advertisementEntity);
         }
     }
 
-    private function _definirVencimentoAnuncio(Advertisement $entity)
+    /*
+    |--------------------------------------------------------------------------
+    | Funções complementares
+    |--------------------------------------------------------------------------
+    */
+
+    private function _setVencimentoAnuncio(Advertisement $entity)
     {
         $plan = $this->Plans->get($entity->plan_id);
         $entity->definirVencimento($plan->periodo, $plan->tipo);

@@ -13,8 +13,10 @@ class PropertiesController extends AppController
 		$propertiesAnunciados = $this->Properties->find('anunciado', ['contain' => 'Advertisements']);
 		$propertiesNaoAnunciados = $this->Properties->find('naoAnunciado', ['contain' => 'Advertisements']);
 		$propertiesVencidos = $this->Properties->find('vencido', ['contain' => 'Advertisements']);
+		$propertiesPendentes = $this->Properties->find('pendente', ['contain' => 'Advertisements']);
 
-		$this->set(compact('properties', 'propertiesAnunciados', 'propertiesNaoAnunciados', 'propertiesVencidos'));
+		$this->set(compact('properties', 'propertiesAnunciados',
+			'propertiesNaoAnunciados', 'propertiesVencidos', 'propertiesPendentes'));
 	}
 
 	public function add()
