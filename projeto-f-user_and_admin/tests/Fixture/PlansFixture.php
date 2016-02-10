@@ -4,10 +4,10 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * PropertiesFixture
+ * PlansFixture
  *
  */
-class PropertiesFixture extends TestFixture
+class PlansFixture extends TestFixture
 {
 
     /**
@@ -19,17 +19,11 @@ class PropertiesFixture extends TestFixture
     public $fields = [
         'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'titulo' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'endereco' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'quartos' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'user_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'periodo' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        '_indexes' => [
-            'FK_properties_users' => ['type' => 'index', 'columns' => ['user_id'], 'length' => []],
-        ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'FK_properties_users' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -47,11 +41,9 @@ class PropertiesFixture extends TestFixture
         [
             'id' => 1,
             'titulo' => 'Lorem ipsum dolor sit amet',
-            'endereco' => 'Lorem ipsum dolor sit amet',
-            'quartos' => 1,
-            'user_id' => 1,
-            'created' => '2016-02-08 13:31:50',
-            'modified' => '2016-02-08 13:31:50'
+            'periodo' => 1,
+            'created' => '2016-02-07 21:59:21',
+            'modified' => '2016-02-07 21:59:21'
         ],
     ];
 }

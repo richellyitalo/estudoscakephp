@@ -7,12 +7,12 @@ use Cake\Collection\Collection;
 
 class DashboardController extends AppController
 {
-	private $_user;
+	private $_userModel;
 
 	public function initialize()
 	{
 		parent::initialize();
-		$this->_user = TableRegistry::get('users')->get( $this->Auth->user('id'), ['contain' => ['Properties']] );
+		$this->_userModel = TableRegistry::get('users')->get( $this->Auth->user('id'), ['contain' => ['Properties']] );
 	}
 
 	// private function _user()
@@ -23,7 +23,7 @@ class DashboardController extends AppController
 
 	public function index()
 	{
-		$properties = $this->_user->properties;
+		$properties = $this->_userModel->properties;
 		$properties = new Collection($properties);
 
 		$this->set(compact('properties'));

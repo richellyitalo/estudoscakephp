@@ -4,20 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Property Entity.
+ * Plan Entity.
  *
  * @property int $id
  * @property string $titulo
- * @property string $endereco
- * @property int $quartos
- * @property int $user_id
- * @property \App\Model\Entity\User $user
+ * @property int $periodo
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property \App\Model\Entity\Advertisement[] $advertisements
- * @property \App\Model\Entity\Plan[] $plans
+ * @property \App\Model\Entity\Property[] $properties
  */
-class Property extends Entity
+class Plan extends Entity
 {
 
     /**
@@ -33,4 +29,25 @@ class Property extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    /**
+     * Tipos de usuário permitidos
+     * @var array
+     */
+    private $_tiposArray = [
+        1 => 'dia',
+        2 => 'mes'
+    ];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tipos permitidos
+    |--------------------------------------------------------------------------
+    */
+   
+    public function getTiposAllow()
+    {
+        return $this->_tiposArray;
+    }
 }

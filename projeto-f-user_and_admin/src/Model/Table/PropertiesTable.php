@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  * Properties Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
+ * @property \Cake\ORM\Association\HasMany $Advertisements
  */
 class PropertiesTable extends Table
 {
@@ -26,7 +27,7 @@ class PropertiesTable extends Table
         parent::initialize($config);
 
         $this->table('properties');
-        $this->displayField('id');
+        $this->displayField('titulo');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -34,6 +35,9 @@ class PropertiesTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
+        ]);
+        $this->hasOne('Advertisements', [
+            'foreignKey' => 'property_id'
         ]);
     }
 
@@ -54,7 +58,7 @@ class PropertiesTable extends Table
             ->notEmpty('titulo');
 
         $validator
-            ->requirePresence('titulo', 'create')
+            ->requirePresence('endereco', 'create')
             ->notEmpty('endereco');
 
         $validator
@@ -76,5 +80,33 @@ class PropertiesTable extends Table
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Finders
+    |--------------------------------------------------------------------------
+    */
+
+
+    public function findNaoAnunciado(Query $query, array $options)
+    {
+        return $query->notMatching('Advertisements');
+    }
+
+    public function findAnunciado(Query $query, array $options)
+    {
+        return $query->matching('Advertisements', function ($q)
+            {
+                return $q->find('valido');
+            });
+    }
+
+    public function findVencido(Query $query, array $options)
+    {
+        return $query->matching('Advertisements', function ($q)
+            {
+                return $q->find('invalido');
+            });
     }
 }

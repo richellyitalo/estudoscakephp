@@ -49,34 +49,65 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li class=""><a href="<?php echo $this->Url->build('/'); ?>">Home</a></li>
+                    <li class="">
+                        <?php echo $this->Html->link('Imóveis', ['prefix' => false, 'controller' => 'Properties', 'action' => 'index']); ?>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
-                    <?php if ($authUser): ?>
+                    <?php
+                    // Usuário logado
+                    if ($authUser['role'] == 'cliente'): ?>
 
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imóveis <span class="caret"></span></a>
                       <ul class="dropdown-menu">
                         <li>
-                        <?php echo $this->Html->link('Listar', ['controller' => 'Properties', 'action' => 'index']); ?>
+                        <?php echo $this->Html->link('Listar', ['prefix' => 'painel', 'controller' => 'Properties', 'action' => 'index']); ?>
                         </li>
                         <li>
-                        <?php echo $this->Html->link('Anunciar', ['controller' => 'Properties', 'action' => 'add']); ?>
+                        <?php echo $this->Html->link('Cadastrar', ['prefix' => 'painel', 'controller' => 'Properties', 'action' => 'add']); ?>
                         </li>
                       </ul>
                     </li>
                     <li>
-                        <?php echo $this->Html->link('Meu painel', ['controller' => 'Dashboard', 'action' => 'index']); ?>
+                        <?php echo $this->Html->link('Anúncios', ['prefix' => 'painel', 'controller' => 'Advertisements', 'action' => 'index']); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link('Meu painel', ['prefix' => 'painel', 'controller' => 'Dashboard', 'action' => 'index']); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link('Sair', '/painel/users/logout'); ?>
+                    </li>
+                    <?php
+                    // Admin logado
+                    elseif ($authUser['role'] == 'admin'): ?>
+
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Planos <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li>
+                        <?php echo $this->Html->link('Listar', ['prefix' => 'admin', 'controller' => 'Plans', 'action' => 'index']); ?>
+                        </li>
+                        <li>
+                        <?php echo $this->Html->link('Cadastrar', ['prefix' => 'admin', 'controller' => 'Plans', 'action' => 'add']); ?>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link('Meu painel', ['prefix' => 'admin', 'controller' => 'Dashboard', 'action' => 'index']); ?>
                     </li>
                     <li>
                         <?php echo $this->Html->link('Sair', '/painel/users/logout'); ?>
                     </li>
 
-                    <?php else: ?>
+                    <?php else:
+                    // Usuário não logado
+                    ?>
 
                     <li>
-                        <?php echo $this->Html->link('Login/Cadastro', '/painel/users/login'); ?>
+                        <?php echo $this->Html->link('Acesso', ['_name' => 'acesso_cliente']); ?>
                     </li>
 
                     <?php endif; ?>
@@ -89,6 +120,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?php echo $this->fetch('content') ?>
 
+    <footer class="footer">
+      <div class="container">
+        <br />
+        <p class="text-muted text-center">Imóveis. Copyright <?php echo date('Y'); ?></p>
+      </div>
+    </footer>
     <?php echo $this->Html->script([
         '/vendor/jquery/dist/jquery.min',
         '/vendor/bootstrap/dist/js/bootstrap.min'

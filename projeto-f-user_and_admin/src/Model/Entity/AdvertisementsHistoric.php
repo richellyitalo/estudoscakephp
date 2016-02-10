@@ -4,20 +4,20 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Property Entity.
+ * AdvertisementsHistoric Entity.
  *
  * @property int $id
- * @property string $titulo
- * @property string $endereco
- * @property int $quartos
- * @property int $user_id
- * @property \App\Model\Entity\User $user
+ * @property int $advertisement_id
+ * @property \App\Model\Entity\Advertisement $advertisement
+ * @property int $plan_id
+ * @property \App\Model\Entity\Plan $plan
+ * @property int $property_id
+ * @property \App\Model\Entity\Property $property
+ * @property \Cake\I18n\Time $vencimento
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property \App\Model\Entity\Advertisement[] $advertisements
- * @property \App\Model\Entity\Plan[] $plans
  */
-class Property extends Entity
+class AdvertisementsHistoric extends Entity
 {
 
     /**

@@ -9,8 +9,12 @@ class PropertiesController extends AppController
 
 	public function index()
 	{
-		$properties = $this->Properties->find('all');
-		$this->set(compact('properties'));
+		$properties = $this->Properties->find('all', ['contain' => 'Advertisements']);
+		$propertiesAnunciados = $this->Properties->find('anunciado', ['contain' => 'Advertisements']);
+		$propertiesNaoAnunciados = $this->Properties->find('naoAnunciado', ['contain' => 'Advertisements']);
+		$propertiesVencidos = $this->Properties->find('vencido', ['contain' => 'Advertisements']);
+
+		$this->set(compact('properties', 'propertiesAnunciados', 'propertiesNaoAnunciados', 'propertiesVencidos'));
 	}
 
 	public function add()
@@ -23,7 +27,7 @@ class PropertiesController extends AppController
 			$property->user = $user;
 			if ($this->Properties->save($property)) {
 				$this->Flash->success('Registro salvo com sucesso.');
-				return $this->redirect(['action' => 'index']);
+				return $this->redirect(['action' => 'plano', $property->id]);
 			} else {
 				$this->Flash->error('Verifique os dados, e tente novamente.');
 			}

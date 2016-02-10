@@ -1,17 +1,20 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\User;
+use App\Model\Entity\AdvertisementsHistoric;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Users Model
+ * AdvertisementsHistoric Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Advertisements
+ * @property \Cake\ORM\Association\BelongsTo $Plans
+ * @property \Cake\ORM\Association\BelongsTo $Properties
  */
-class UsersTable extends Table
+class AdvertisementsHistoricTable extends Table
 {
 
     /**
@@ -24,29 +27,24 @@ class UsersTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('users');
-        $this->displayField('nome');
+        $this->table('advertisements_historic');
+        $this->displayField('id');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('Properties');
-    }
-
-    /**
-     * Busca apenas clientes no banco
-     */
-    public function findAuthCliente(Query $query, array $options)
-    {
-        return $query->where(['level' => ROLE_ID_CLIENTE]);
-    }
-
-    /**
-     * Busca apenas administradores
-     */
-    public function findAuthAdmin(Query $query, array $options)
-    {
-        return $query->where(['level' => ROLE_ID_ADMIN]);
+        $this->belongsTo('Advertisements', [
+            'foreignKey' => 'advertisement_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Plans', [
+            'foreignKey' => 'plan_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Properties', [
+            'foreignKey' => 'property_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -62,25 +60,8 @@ class UsersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('nome', 'create')
-            ->notEmpty('nome');
-
-        $validator
-            ->requirePresence('nome', 'create')
-            ->notEmpty('sobrenome');
-
-        $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmpty('email');
-
-        $validator
-            ->requirePresence('password', 'create')
-            ->notEmpty('password');
-
-        $validator
-            ->requirePresence('endereco', 'create')
-            ->notEmpty('endereco');
+            ->dateTime('vencimento')
+            ->allowEmpty('vencimento');
 
         return $validator;
     }
@@ -94,7 +75,9 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->existsIn(['advertisement_id'], 'Advertisements'));
+        $rules->add($rules->existsIn(['plan_id'], 'Plans'));
+        $rules->add($rules->existsIn(['property_id'], 'Properties'));
         return $rules;
     }
 }

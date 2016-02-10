@@ -4,7 +4,7 @@
   <div class="jumbotron">
     <h1>Olá, <?php echo $authUser['nome']; ?></h1>
 
-    <?php if ($properties->isEmpty()): ?>
+    <?php if ($properties->count() > 0): ?>
     	<p>Você ainda não possui <strong>Imóvel</strong> publicado.
     		<?php echo $this->Html->link('Anuncie seu Imóvel',
     			['controller' => 'Properties', 'action' => 'add'],
@@ -14,7 +14,7 @@
     <?php endif; ?>
   </div>
 
-	<?php if (! $properties->isEmpty()): ?>
+	<?php if ($properties->count() > 0): ?>
 	<div class="row">
 		<div class="col-md-6">
 			<h2>Seus imóveis publicados</h2>

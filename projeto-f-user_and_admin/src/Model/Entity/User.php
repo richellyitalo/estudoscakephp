@@ -98,6 +98,10 @@ class User extends Entity
      * **********************************************************
      * PUBLIC
      */
+    
+    /**
+     * setRole('cliente');
+     */
     public function setRole($role)
     {
         $this->set('level', $this->_getLevel($role));

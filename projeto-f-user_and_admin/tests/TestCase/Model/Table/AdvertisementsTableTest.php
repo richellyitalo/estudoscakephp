@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\PropertiesTable;
+use App\Model\Table\AdvertisementsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\PropertiesTable Test Case
+ * App\Model\Table\AdvertisementsTable Test Case
  */
-class PropertiesTableTest extends TestCase
+class AdvertisementsTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\PropertiesTable
+     * @var \App\Model\Table\AdvertisementsTable
      */
-    public $Properties;
+    public $Advertisements;
 
     /**
      * Fixtures
@@ -24,10 +24,10 @@ class PropertiesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.properties',
-        'app.users',
         'app.advertisements',
         'app.plans',
+        'app.properties',
+        'app.users',
         'app.plans_properties'
     ];
 
@@ -39,8 +39,8 @@ class PropertiesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Properties') ? [] : ['className' => 'App\Model\Table\PropertiesTable'];
-        $this->Properties = TableRegistry::get('Properties', $config);
+        $config = TableRegistry::exists('Advertisements') ? [] : ['className' => 'App\Model\Table\AdvertisementsTable'];
+        $this->Advertisements = TableRegistry::get('Advertisements', $config);
     }
 
     /**
@@ -50,7 +50,7 @@ class PropertiesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Properties);
+        unset($this->Advertisements);
 
         parent::tearDown();
     }

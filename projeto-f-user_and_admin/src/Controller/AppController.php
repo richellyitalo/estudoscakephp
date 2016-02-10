@@ -82,16 +82,32 @@ class AppController extends Controller
         parent::beforeFilter($event);
 
         // Autorização para admin
-        if ($this->getPrefix() == 'admin' and $this->Auth->user('role') != 'admin') {
+        if ($this->Auth->user() && ($this->_getPrefix() == 'admin' and $this->Auth->user('role') != 'admin')){
             throw new NotFoundException("Página não encontrada");
         }
 
+        $this->_setAuthFinder();
+
         // if ($this->Auth->user('role') == 'cliente') {
-        //     $this->Auth->config('loginRedirect', ['controller' => 'Dashboard', 'action' => 'index']);
+        //     $this->Auth->config('loginRedirect', ['prefix' => 'painel', 'controller' => 'Dashboard', 'action' => 'index']);
         // }
     }
 
-    private function getPrefix()
+    /**
+     * Define o finder do formulário de login para as respectivas áreas (/painel, /admin)
+     */
+    private function _setAuthFinder()
+    {
+        // Área do cliente
+        if ($this->_getPrefix() == 'painel') {
+            $this->Auth->config('authenticate', ['form' => ['finder' => 'authCliente']]);
+        // Administradores ou moderadores
+        } elseif ($this->_getPrefix() == 'admin') {
+            $this->Auth->config('authenticate', ['form' => ['finder' => 'authAdmin']]);
+        }
+    }
+
+    private function _getPrefix()
     {
         if (isset($this->request->params['prefix'])) {
             return $this->request->params['prefix'];

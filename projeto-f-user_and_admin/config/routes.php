@@ -79,6 +79,9 @@ Router::scope('/', function ($routes) {
 Router::prefix('painel', function ($routes) {
     $routes->connect('/', ['controller' => 'Dashboard']);
 
+    // Painel do usuário
+    $routes->connect('/acesso', ['controller' => 'Users', 'action' => 'login'], ['_name' => 'acesso_cliente']);
+
     $routes->fallbacks('InflectedRoute');
 });
 
@@ -87,6 +90,7 @@ Router::prefix('painel', function ($routes) {
  */
 Router::prefix('admin', function ($routes) {
     $routes->connect('/', ['controller' => 'Dashboard']);
+    $routes->connect('/acesso', ['controller' => 'Users', 'action' => 'login'], ['_name' => 'acesso_admin']);
 
     $routes->fallbacks('InflectedRoute');
 });
