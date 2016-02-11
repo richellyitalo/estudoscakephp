@@ -41,10 +41,6 @@ class AdvertisementsHistoricTable extends Table
             'foreignKey' => 'plan_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Properties', [
-            'foreignKey' => 'property_id',
-            'joinType' => 'INNER'
-        ]);
     }
 
     /**
@@ -58,6 +54,20 @@ class AdvertisementsHistoricTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
+
+        $validator
+            ->integer('plan_periodo')
+            ->requirePresence('plan_periodo', 'create')
+            ->notEmpty('plan_periodo');
+
+        $validator
+            ->integer('plan_tipo')
+            ->requirePresence('plan_tipo', 'create')
+            ->notEmpty('plan_tipo');
+
+        $validator
+            ->integer('status')
+            ->allowEmpty('status');
 
         $validator
             ->dateTime('vencimento')
@@ -77,7 +87,42 @@ class AdvertisementsHistoricTable extends Table
     {
         $rules->add($rules->existsIn(['advertisement_id'], 'Advertisements'));
         $rules->add($rules->existsIn(['plan_id'], 'Plans'));
-        $rules->add($rules->existsIn(['property_id'], 'Properties'));
         return $rules;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Before's
+    |--------------------------------------------------------------------------
+    */
+
+    public function beforeSave($event, $entity, $options)
+    {
+        if ($entity->status == AdvertisementsHistoric::PAGO)
+        {
+            $advertisementsHistoricPendingEntity = $this->get($entity->id, ['contain' => 'Advertisements']);
+
+            $advertisement = $advertisementsHistoricPendingEntity->advertisement;
+            $advertisement->definirVencimento($entity->plan_periodo, $entity->plan_tipo);
+            $advertisement->plan_id = $entity->plan_id;
+
+            $this->Advertisements->save($advertisement, ['associated' => false]);
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Finders
+    |--------------------------------------------------------------------------
+    */
+   
+    public function findPending(Query $query, array $options)
+    {
+        return $query->where(['status' => AdvertisementsHistoric::PENDENTE]);
+    }
+
+    public function findAccomplished(Query $query, array $options)
+    {
+        return $query->where(['status' => AdvertisementsHistoric::PAGO]);
     }
 }

@@ -26,6 +26,7 @@ class AdvertisementsHistoricTableTest extends TestCase
     public $fixtures = [
         'app.advertisements_historic',
         'app.advertisements',
+        'app.advertisements_pending',
         'app.plans',
         'app.properties',
         'app.users',
@@ -82,6 +83,16 @@ class AdvertisementsHistoricTableTest extends TestCase
      * @return void
      */
     public function testBuildRules()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test beforeSave method
+     *
+     * @return void
+     */
+    public function testBeforeSave()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

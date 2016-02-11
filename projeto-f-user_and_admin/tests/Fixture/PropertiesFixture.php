@@ -50,8 +50,8 @@ class PropertiesFixture extends TestFixture
             'endereco' => 'Lorem ipsum dolor sit amet',
             'quartos' => 1,
             'user_id' => 1,
-            'created' => '2016-02-08 13:31:50',
-            'modified' => '2016-02-08 13:31:50'
+            'created' => '2016-02-11 08:57:47',
+            'modified' => '2016-02-11 08:57:47'
         ],
     ];
 }

@@ -27,8 +27,10 @@ class PropertiesTableTest extends TestCase
         'app.properties',
         'app.users',
         'app.advertisements',
+        'app.advertisements_historic',
         'app.plans',
-        'app.plans_properties'
+        'app.plans_properties',
+        'app.advertisements_pending'
     ];
 
     /**
@@ -81,6 +83,46 @@ class PropertiesTableTest extends TestCase
      * @return void
      */
     public function testBuildRules()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test findNaoAnunciado method
+     *
+     * @return void
+     */
+    public function testFindNaoAnunciado()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test findAnunciado method
+     *
+     * @return void
+     */
+    public function testFindAnunciado()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test findPendente method
+     *
+     * @return void
+     */
+    public function testFindPendente()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test findVencido method
+     *
+     * @return void
+     */
+    public function testFindVencido()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

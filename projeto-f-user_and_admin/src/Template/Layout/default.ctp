@@ -100,7 +100,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Anúncios <span class="caret"></span></a>
                       <ul class="dropdown-menu">
                         <li>
-                        <?php echo $this->Html->link('Pendentes', ['prefix' => 'admin', 'controller' => 'AdvertisementsPending', 'action' => 'index']); ?>
+                        <?php echo $this->Html->link('Histórico', ['prefix' => 'admin', 'controller' => 'AdvertisementsHistoric', 'action' => 'index']); ?>
                         </li>
                       </ul>
                     </li>

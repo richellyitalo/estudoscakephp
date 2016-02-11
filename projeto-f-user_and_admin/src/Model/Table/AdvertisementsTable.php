@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\Advertisement;
+use App\Model\Entity\AdvertisementsHistoric;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -34,10 +35,6 @@ class AdvertisementsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasMany('AdvertisementsHistoric', [
-            'targetForeignKey' => 'advertisement_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->hasMany('AdvertisementsPending', [
             'targetForeignKey' => 'advertisement_id',
             'joinType' => 'INNER'
         ]);
@@ -109,7 +106,10 @@ class AdvertisementsTable extends Table
 
     public function beforeSave($event, $entity, $options)
     {
-        if ($entity->isNew() || $options['renew']) {
+        if (
+            $entity->isNew() ||
+            (isset($options['renew']) && $options['renew'] == true)
+        ) {
             //$entity = $this->_setVencimentoAnuncio($entity);
         }
     }
@@ -118,15 +118,23 @@ class AdvertisementsTable extends Table
     {
         $planModelTable = $this->Plans->get($entity->plan_id);
 
-        if ($entity->isnew() || $options['renew']) {
-            $advertisementPendingData = array_merge($entity->toArray(), [
-                'advertisement_id' => $entity->id,
-                'plan_periodo' => $planModelTable->periodo,
-                'plan_tipo' => $planModelTable->tipo
-            ]);
+        if (
+            $entity->isNew() ||
+            (isset($options['renew']) && $options['renew'] == true)
+        ) {
+            $advertisementHistoricPendingData = array_merge($entity->toArray(), 
+                [
+                    'advertisement_id' => $entity->id,
+                    'plan_periodo' => $planModelTable->periodo,
+                    'plan_tipo' => $planModelTable->tipo
+                ]
+            );
 
-            $advertisementEntity = $this->AdvertisementsPending->newEntity($advertisementPendingData, ['associated' => false]);
-            $this->AdvertisementsPending->save($advertisementEntity);
+            $advertisementHistoricEntity = $this->AdvertisementsHistoric->newEntity($advertisementHistoricPendingData,
+                ['associated' => false]
+            );
+
+            $this->AdvertisementsHistoric->save($advertisementHistoricEntity, ['associated' => false]);
         }
     }
 

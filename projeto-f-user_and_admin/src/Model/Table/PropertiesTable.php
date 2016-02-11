@@ -12,6 +12,8 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\HasMany $Advertisements
+ * @property \Cake\ORM\Association\HasMany $AdvertisementsHistoric
+ * @property \Cake\ORM\Association\HasMany $AdvertisementsPending
  */
 class PropertiesTable extends Table
 {
@@ -37,6 +39,12 @@ class PropertiesTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->hasOne('Advertisements', [
+            'foreignKey' => 'property_id'
+        ]);
+        $this->hasMany('AdvertisementsHistoric', [
+            'foreignKey' => 'property_id'
+        ]);
+        $this->hasMany('AdvertisementsPending', [
             'foreignKey' => 'property_id'
         ]);
     }
@@ -68,6 +76,7 @@ class PropertiesTable extends Table
 
         return $validator;
     }
+
 
     /**
      * Returns a rules checker object that will be used for validating

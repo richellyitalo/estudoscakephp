@@ -13,12 +13,24 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Plan $plan
  * @property int $property_id
  * @property \App\Model\Entity\Property $property
+ * @property int $plan_periodo
+ * @property int $plan_tipo
+ * @property int $status
  * @property \Cake\I18n\Time $vencimento
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  */
 class AdvertisementsHistoric extends Entity
 {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Constantes
+    |--------------------------------------------------------------------------
+    */
+
+    const PENDENTE = '0';
+    const PAGO = '1';
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -33,4 +45,44 @@ class AdvertisementsHistoric extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    protected $_virtual = [
+        'plan_tipo_nome'
+    ];
+
+   
+    private $_statusArray = [
+        self::PENDENTE => 'Pendente',
+        self::PAGO => 'Pago'
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Funções Públicas
+    |--------------------------------------------------------------------------
+    */
+
+    public function getStatus()
+    {
+        return $_statusArray;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Virtual Fields
+    |--------------------------------------------------------------------------
+    */
+
+    protected function _getPlanTipoNome()
+    {
+        $plan = new Plan();
+        $tiposArray = $plan->getTipos();
+
+        return $tiposArray[ $this->_properties['plan_tipo'] ];
+    }
+
+    protected function _getStatusNome()
+    {
+        return $this->_statusArray[ $this->_properties['status'] ];
+    }
 }

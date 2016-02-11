@@ -14,8 +14,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\User $user
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property \App\Model\Entity\Advertisement[] $advertisements
- * @property \App\Model\Entity\Plan[] $plans
+ * @property \App\Model\Entity\Advertisement $advertisement
  */
 class Property extends Entity
 {

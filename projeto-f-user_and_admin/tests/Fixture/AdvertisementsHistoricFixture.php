@@ -28,6 +28,9 @@ class AdvertisementsHistoricFixture extends TestFixture
         'advertisement_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'plan_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'property_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'plan_periodo' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'plan_tipo' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'status' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => '-1', 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'vencimento' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
@@ -52,9 +55,12 @@ class AdvertisementsHistoricFixture extends TestFixture
             'advertisement_id' => 1,
             'plan_id' => 1,
             'property_id' => 1,
-            'vencimento' => '2016-02-09 20:02:07',
-            'created' => '2016-02-09 20:02:07',
-            'modified' => '2016-02-09 20:02:07'
+            'plan_periodo' => 1,
+            'plan_tipo' => 1,
+            'status' => 1,
+            'vencimento' => '2016-02-11 10:25:22',
+            'created' => '2016-02-11 10:25:22',
+            'modified' => '2016-02-11 10:25:22'
         ],
     ];
 }
