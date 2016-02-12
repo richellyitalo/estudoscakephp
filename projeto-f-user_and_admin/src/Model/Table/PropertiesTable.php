@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\I18n\Time;
 
 /**
  * Properties Model
@@ -44,7 +45,10 @@ class PropertiesTable extends Table
         ]);
         $this->hasOne('Anuncio', [
             'className' => 'Anuncios',
-            'conditions' => ['Anuncio.active' => true]
+            'conditions' => [
+                'Anuncio.active' => true,
+                'Anuncio.vencimento >=' => new Time()
+            ]
         ]);
     }
 

@@ -16,7 +16,7 @@ class PropertiesController extends AppController
 		// $propertiesVencidos = $this->Properties->find('vencido', ['contain' => 'Anuncios']);
 
 		$propertiesPendentes = $this->Properties->find('pendentes', ['contain' => ['Anuncios', 'Anuncio']]);
-		debug($propertiesNaoAnunciados->toArray()); die();
+		debug($propertiesAnunciados->toArray()); die();
 		$this->set(compact(
 			'properties', 'propertiesAnunciados',
 			'propertiesNaoAnunciados', 'propertiesVencidos', 'propertiesPendentes'
