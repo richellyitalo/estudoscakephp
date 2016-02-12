@@ -10,11 +10,13 @@ use Cake\ORM\Entity;
  * @property string $titulo
  * @property string $endereco
  * @property int $quartos
+ * @property int $anuncio_id
+ * @property \App\Model\Entity\Anuncio $anuncio
  * @property int $user_id
  * @property \App\Model\Entity\User $user
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property \App\Model\Entity\Advertisement $advertisement
+ * @property \App\Model\Entity\Advertisement[] $advertisements
  */
 class Property extends Entity
 {
@@ -32,4 +34,11 @@ class Property extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    protected function _setAnuncio(Phone $entity)
+    {
+        $entity->active = true;
+
+        return $entity;
+    }
 }

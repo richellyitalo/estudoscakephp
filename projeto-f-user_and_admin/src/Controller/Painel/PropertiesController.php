@@ -9,14 +9,18 @@ class PropertiesController extends AppController
 
 	public function index()
 	{
-		$properties = $this->Properties->find('all', ['contain' => 'Advertisements']);
-		$propertiesAnunciados = $this->Properties->find('anunciado', ['contain' => 'Advertisements']);
-		$propertiesNaoAnunciados = $this->Properties->find('naoAnunciado', ['contain' => 'Advertisements']);
-		$propertiesVencidos = $this->Properties->find('vencido', ['contain' => 'Advertisements']);
-		$propertiesPendentes = $this->Properties->find('pendente', ['contain' => 'Advertisements']);
+		$properties = $this->Properties->find('all', ['contain' => ['Anuncio', 'Anuncios']]);
+		$propertiesAnunciados = $this->Properties->find('anunciado', ['contain' => ['Anuncio', 'Anuncios']]);
 
-		$this->set(compact('properties', 'propertiesAnunciados',
-			'propertiesNaoAnunciados', 'propertiesVencidos', 'propertiesPendentes'));
+		$propertiesNaoAnunciados = $this->Properties->find('naoAnunciado', ['contain' => 'Anuncios']);
+		// $propertiesVencidos = $this->Properties->find('vencido', ['contain' => 'Anuncios']);
+
+		$propertiesPendentes = $this->Properties->find('pendentes', ['contain' => ['Anuncios', 'Anuncio']]);
+		debug($propertiesNaoAnunciados->toArray()); die();
+		$this->set(compact(
+			'properties', 'propertiesAnunciados',
+			'propertiesNaoAnunciados', 'propertiesVencidos', 'propertiesPendentes'
+		));
 	}
 
 	public function add()

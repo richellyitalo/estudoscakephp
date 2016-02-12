@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  * Anuncios Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Plans
+ * @property \Cake\ORM\Association\HasMany $Properties
  */
 class AnunciosTable extends Table
 {
@@ -35,6 +36,9 @@ class AnunciosTable extends Table
             'foreignKey' => 'plan_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('Properties', [
+            'foreignKey' => 'property_id'
+        ]);
     }
 
     /**
@@ -51,13 +55,11 @@ class AnunciosTable extends Table
 
         $validator
             ->integer('plan_periodo')
-            ->requirePresence('plan_periodo', 'create')
-            ->notEmpty('plan_periodo');
+            ->allowEmpty('plan_periodo');
 
         $validator
             ->integer('plan_tipo')
-            ->requirePresence('plan_tipo', 'create')
-            ->notEmpty('plan_tipo');
+            ->allowEmpty('plan_tipo');
 
         $validator
             ->integer('status')
@@ -65,8 +67,7 @@ class AnunciosTable extends Table
 
         $validator
             ->dateTime('vencimento')
-            ->requirePresence('vencimento', 'create')
-            ->notEmpty('vencimento');
+            ->allowEmpty('vencimento');
 
         return $validator;
     }
@@ -82,5 +83,86 @@ class AnunciosTable extends Table
     {
         $rules->add($rules->existsIn(['plan_id'], 'Plans'));
         return $rules;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Before's
+    |--------------------------------------------------------------------------
+    */
+
+    public function beforeSave($event, $entity, $options)
+    {
+        if ($entity->isNew()) {
+            $this->_setValoresDoPlano($entity);
+        }
+
+        if ($entity->status == Anuncio::PAGO)
+        {
+            $this->_setVencimentoAndDefineOneActive($entity);
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Finders
+    |--------------------------------------------------------------------------
+    */
+
+    public function findPago(Query $query, array $options)
+    {
+        return $query->where([
+            'status' => Anuncio::PAGO
+        ]);
+    }
+
+    public function findValido(Query $query, array $options)
+    {
+        return $query->find('pago')
+            ->where([
+                'vencimento >=' => $query->func()->now()
+            ]);
+    }
+
+    public function findVencido(Query $query, array $options)
+    {
+        return $query->find('pago')
+            ->where([
+                'vencimento <' => $query->func()->now()
+            ]);
+    }
+
+    public function findPendente(Query $query, array $options)
+    {
+        return $query->where(['status' => Anuncio::PENDENTE]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Funções Privadas
+    |--------------------------------------------------------------------------
+    */
+   
+    private function _setVencimentoAndDefineOneActive(Anuncio &$entity)
+    {
+        $property = $this->Properties->get($entity->property_id, [
+            'contain' => ['Anuncio']
+        ]);
+        $entity->setVencimentoOrConcat($property->anuncio);
+
+        $this->Properties->Anuncios->query()
+            ->update()
+            ->set(['active' => false])
+            ->where(['property_id' => $entity->property_id])
+            ->execute();
+
+        $entity->active = true;
+    }
+
+    private function _setValoresDoPlano(Anuncio &$entity) {
+        $planTable = $this->Plans->get($entity->plan_id);
+
+        $entity->plan_periodo = $planTable->periodo;
+        $entity->plan_tipo = $planTable->tipo;
     }
 }

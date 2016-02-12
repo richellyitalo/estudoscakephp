@@ -30,7 +30,6 @@ class AnunciosTableTest extends TestCase
         'app.users',
         'app.advertisements',
         'app.advertisements_historic',
-        'app.advertisements_pending',
         'app.plans_properties'
     ];
 
@@ -84,6 +83,36 @@ class AnunciosTableTest extends TestCase
      * @return void
      */
     public function testBuildRules()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test beforeSave method
+     *
+     * @return void
+     */
+    public function testBeforeSave()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test findPendente method
+     *
+     * @return void
+     */
+    public function testFindPendente()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test findEfetuado method
+     *
+     * @return void
+     */
+    public function testFindEfetuado()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

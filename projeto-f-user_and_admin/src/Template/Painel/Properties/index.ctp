@@ -21,43 +21,6 @@
 
 		    				/*
 		    				|--------------------------------------------------------------------------
-		    				| IMÓVEIS PENDENTES
-		    				|--------------------------------------------------------------------------
-		    				 */
-
-		    				if ($propertiesPendentes->count() > 0):
-	    					?>
-	    					<tbody>
-	    						<tr>
-	    							<th colspan="6" class="text-center alert alert-warning">
-	    								IMÓVEIS COM ANÚNCIOS PENDENTES
-	    							</th>
-	    						</tr>
-	    					</tbody>
-
-		    				<tbody>
-		    					<?php foreach ($propertiesPendentes as $v): ?>
-		    					<tr>
-		    						<td><?php echo $v->id ?></td>
-		    						<td><?php echo $v->titulo ?></td>
-		    						<td><?php echo $v->created ?></td>
-		    						<td><?php echo $v->modified ?></td>
-		    						<td>-</td>
-		    						<td>
-	    								<?php echo $this->Html->link('<span class="glyphicon glyphicon-pencil"></span>',
-    										['action' => 'edit', $v->id], ['escape' => false]) ?>
-	    								<?php echo $this->Html->link('renovar plano',
-    										['controller' => 'Advertisements', 'action' => 'renew', $v->advertisement->id], ['class' => 'btn btn-primary btn-xs']) ?>
-		    						</td>
-		    					</tr>
-		    					<?php endforeach; ?>
-		    				</tbody>
-
-							<?php
-							endif;
-
-		    				/*
-		    				|--------------------------------------------------------------------------
 		    				| IMÓVEIS ANUNCIADOS
 		    				|--------------------------------------------------------------------------
 		    				 */
@@ -66,7 +29,7 @@
 	    					?>
 	    					<tbody>
 	    						<tr>
-	    							<th colspan="6" class="text-center alert alert-success">
+	    							<th colspan="6" class="text-center alert alert-info">
 	    								IMÓVEIS ANUNCIADOS
 	    							</th>
 	    						</tr>
@@ -79,12 +42,12 @@
 		    						<td><?php echo $v->titulo ?></td>
 		    						<td><?php echo $v->created ?></td>
 		    						<td><?php echo $v->modified ?></td>
-		    						<td><?php echo $v->advertisement->vencimento ?></td>
+		    						<td>-</td>
 		    						<td>
 	    								<?php echo $this->Html->link('<span class="glyphicon glyphicon-pencil"></span>',
     										['action' => 'edit', $v->id], ['escape' => false]) ?>
-	    								<?php echo $this->Html->link('renovar plano',
-    										['controller' => 'Advertisements', 'action' => 'renew', $v->advertisement->id], ['class' => 'btn btn-primary btn-xs']) ?>
+	    								<?php echo $this->Html->link('anunciar',
+    										['controller' => 'Anuncios', 'action' => 'add', $v->id], ['class' => 'btn btn-primary btn-xs']) ?>
 		    						</td>
 		    					</tr>
 		    					<?php endforeach; ?>
@@ -92,13 +55,16 @@
 
 							<?php
 							endif;
+							?>
+
+							<?php
 
 		    				/*
 		    				|--------------------------------------------------------------------------
 		    				| IMÓVEIS NÃO ANUNCIADOS
 		    				|--------------------------------------------------------------------------
 		    				 */
-		    				
+
 		    				if ($propertiesNaoAnunciados->count() > 0):
 	    					?>
 	    					<tbody>
@@ -108,6 +74,7 @@
 	    							</th>
 	    						</tr>
 	    					</tbody>
+
 		    				<tbody>
 		    					<?php foreach ($propertiesNaoAnunciados as $v): ?>
 		    					<tr>
@@ -115,52 +82,21 @@
 		    						<td><?php echo $v->titulo ?></td>
 		    						<td><?php echo $v->created ?></td>
 		    						<td><?php echo $v->modified ?></td>
-		    						<td></td>
+		    						<td>-</td>
 		    						<td>
 	    								<?php echo $this->Html->link('<span class="glyphicon glyphicon-pencil"></span>',
     										['action' => 'edit', $v->id], ['escape' => false]) ?>
-	    								<?php echo $this->Html->link('anunciar imóvel',
-    										['controller' => 'Advertisements', 'action' => 'add', $v->id], ['class' => 'btn btn-primary btn-xs']) ?>
+	    								<?php echo $this->Html->link('anunciar',
+    										['controller' => 'Anuncios', 'action' => 'add', $v->id], ['class' => 'btn btn-primary btn-xs']) ?>
 		    						</td>
 		    					</tr>
 		    					<?php endforeach; ?>
 		    				</tbody>
-		    				<?php endif;
 
-		    				/*
-		    				|--------------------------------------------------------------------------
-		    				| IMÓVEIS VENCIDOS
-		    				|--------------------------------------------------------------------------
-		    				 */
+							<?php
+							endif;
+							?>
 
-		    				if ($propertiesVencidos->count() > 0):
-		    				?>
-
-	    					<tbody>
-	    						<tr>
-	    							<th colspan="6" class="text-center alert alert-danger">
-	    								ANÚNCIOS VENCIDOS
-	    							</th>
-	    						</tr>
-	    					</tbody>
-		    				<tbody>
-		    					<?php foreach ($propertiesVencidos as $v): ?>
-		    					<tr>
-		    						<td><?php echo $v->id ?></td>
-		    						<td><?php echo $v->titulo ?></td>
-		    						<td><?php echo $v->created ?></td>
-		    						<td><?php echo $v->modified ?></td>
-		    						<td><?php echo $v->advertisement->vencimento ?></td>
-		    						<td>
-	    								<?php echo $this->Html->link('<span class="glyphicon glyphicon-pencil"></span>',
-    										['action' => 'edit', $v->id], ['escape' => false]) ?>
-	    								<?php echo $this->Html->link('renovar plano',
-    										['controller' => 'Advertisements', 'action' => 'add', $v->id], ['class' => 'btn btn-primary btn-xs']) ?>
-		    						</td>
-		    					</tr>
-		    					<?php endforeach; ?>
-		    				</tbody>
-		    				<?php endif; ?>
 		    			</table>
 
     			<?php else: ?>

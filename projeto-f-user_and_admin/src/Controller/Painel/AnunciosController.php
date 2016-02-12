@@ -18,13 +18,14 @@ class AnunciosController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Plans']
-        ];
-        $anuncios = $this->paginate($this->Anuncios);
-
-        $this->set(compact('anuncios'));
-        $this->set('_serialize', ['anuncios']);
+        $anunciosPendentes = $this->Anuncios->find('pendente', [
+            'contain' => ['Properties', 'Plans']
+        ]);
+        $anunciosEfetuados = $this->Anuncios->find('efetuado', [
+            'contain' => ['Properties', 'Plans']
+        ]);
+        $this->set(compact('anunciosPendentes', 'anunciosEfetuados'));
+        // $this->set(compact('anunciosPendentes', 'anunciosEfetuados'));
     }
 
     /**
@@ -49,10 +50,11 @@ class AnunciosController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($propertyId = null)
     {
         $anuncio = $this->Anuncios->newEntity();
         if ($this->request->is('post')) {
+            $anuncio->property_id = $propertyId;
             $anuncio = $this->Anuncios->patchEntity($anuncio, $this->request->data);
             if ($this->Anuncios->save($anuncio)) {
                 $this->Flash->success(__('The anuncio has been saved.'));
@@ -61,8 +63,11 @@ class AnunciosController extends AppController
                 $this->Flash->error(__('The anuncio could not be saved. Please, try again.'));
             }
         }
+
+        $property = $this->Anuncios->Properties->get($propertyId);
         $plans = $this->Anuncios->Plans->find('list', ['limit' => 200]);
-        $this->set(compact('anuncio', 'plans'));
+
+        $this->set(compact('anuncio', 'plans', 'property'));
         $this->set('_serialize', ['anuncio']);
     }
 

@@ -10,10 +10,10 @@ use Cake\Validation\Validator;
 /**
  * Properties Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Anuncios
  * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\HasMany $Advertisements
- * @property \Cake\ORM\Association\HasMany $AdvertisementsHistoric
- * @property \Cake\ORM\Association\HasMany $AdvertisementsPending
+ * @property \Cake\ORM\Association\HasMany $Anuncios
  */
 class PropertiesTable extends Table
 {
@@ -34,18 +34,17 @@ class PropertiesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        // $this->belongsTo('Advertisements');
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasOne('Advertisements', [
+        $this->hasMany('Anuncios', [
             'foreignKey' => 'property_id'
         ]);
-        $this->hasMany('AdvertisementsHistoric', [
-            'foreignKey' => 'property_id'
-        ]);
-        $this->hasMany('AdvertisementsPending', [
-            'foreignKey' => 'property_id'
+        $this->hasOne('Anuncio', [
+            'className' => 'Anuncios',
+            'conditions' => ['Anuncio.active' => true]
         ]);
     }
 
@@ -77,7 +76,6 @@ class PropertiesTable extends Table
         return $validator;
     }
 
-
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -97,15 +95,14 @@ class PropertiesTable extends Table
     |--------------------------------------------------------------------------
     */
 
-
     public function findNaoAnunciado(Query $query, array $options)
     {
-        return $query->notMatching('Advertisements');
+        return $query->notMatching('Anuncio');
     }
 
     public function findAnunciado(Query $query, array $options)
     {
-        return $query->matching('Advertisements', function ($q)
+        return $query->matching('Anuncio', function ($q)
             {
                 return $q->find('valido');
             });
@@ -113,7 +110,15 @@ class PropertiesTable extends Table
 
     public function findPendente(Query $query, array $options)
     {
-        return $query->matching('Advertisements', function ($q)
+        return $query->matching('Anuncio', function ($q)
+            {
+                return $q->find('pendente');
+            });
+    }
+
+    public function findPendentes(Query $query, array $options)
+    {
+        return $query->matching('Anuncios', function ($q)
             {
                 return $q->find('pendente');
             });
@@ -121,9 +126,9 @@ class PropertiesTable extends Table
 
     public function findVencido(Query $query, array $options)
     {
-        return $query->matching('Advertisements', function ($q)
+        return $query->matching('Anuncio', function ($q)
             {
-                return $q->find('invalido');
+                return $q->find('vencido');
             });
     }
 }

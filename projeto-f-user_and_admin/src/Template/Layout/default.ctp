@@ -102,6 +102,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         <li>
                         <?php echo $this->Html->link('Histórico', ['prefix' => 'admin', 'controller' => 'AdvertisementsHistoric', 'action' => 'index']); ?>
                         </li>
+                        <li>
+                        <?php echo $this->Html->link('Anúncios 2.0', ['prefix' => 'admin', 'controller' => 'Anuncios', 'action' => 'index']); ?>
+                        </li>
                       </ul>
                     </li>
                     <li>
